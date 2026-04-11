@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altreich Think Tank | Impactful Design for Global Change</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #10b981;
+            --primary-dark: #059669;
+            --secondary: #0f172a;
+            --accent: #34d399;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.03);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- Components --- */
+
+        .section-padding {
+            padding: 100px 5%;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 25px 5%;
+            transition: var(--transition);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav.scrolled {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 5%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--white);
+            letter-spacing: -1px;
+        }
+
+        .logo-box {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* --- Hero --- */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.6)), 
+                        url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 5%;
+        }
+
+        .hero-content {
+            max-width: 850px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: var(--accent);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            color: white;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 25px;
+        }
+
+        h1 span {
+            color: var(--primary);
+        }
+
+        .hero-p {
+            font-size: 1.25rem;
+            color: #cbd5e1;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 16px 36px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-outline {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* --- About --- */
+        .about {
+            background: var(--white);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            color: var(--secondary);
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .stat-item h3 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .stat-item p {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .about-visual {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .visual-card {
+            padding: 40px 30px;
+            border-radius: 30px;
+            transition: var(--transition);
+        }
+
+        .v-card-1 { background: #f1f5f9; }
+        .v-card-2 { background: var(--primary); color: white; margin-top: 40px; }
+
+        .v-card-icon {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .visual-card h4 {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        /* --- Mission & Vision --- */
+        .mv-section {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .mv-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .mv-card {
+            padding: 60px;
+            border-radius: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mv-mission {
+            background: #1e293b;
+            border: 1px solid #334155;
+        }
+
+        .mv-vision {
+            background: linear-gradient(135deg, var(--primary), #0d9488);
+        }
+
+        .mv-card h3 {
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .mv-card h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .mv-icon-bg {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 10rem;
+            opacity: 0.05;
+            transform: rotate(-15deg);
+        }
+
+        /* --- Causes --- */
+        .causes {
+            text-align: center;
+        }
+
+        .section-header {
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+
+        .causes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .cause-card {
+            background: white;
+            padding: 50px 40px;
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+            border: 1px solid #f1f5f9;
+            transition: var(--transition);
+        }
+
+        .cause-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+        }
+
+        .cause-icon {
+            width: 70px;
+            height: 70px;
+            background: #ecfdf5;
+            color: var(--primary);
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .cause-card:hover .cause-icon {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* --- Contact --- */
+        .contact-box {
+            background: var(--secondary);
+            border-radius: 50px;
+            padding: 80px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            color: white;
+        }
+
+        .contact-info h2 { font-size: 3rem; margin-bottom: 20px; }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .c-icon {
+            width: 50px;
+            height: 50px;
+            background: #1e293b;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 18px 25px;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 15px;
+            color: white;
+            margin-bottom: 20px;
+            font-family: inherit;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .contact-form input:focus, .contact-form textarea:focus {
+            border-color: var(--primary);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: var(--primary);
+            border: none;
+            border-radius: 15px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: #020617;
+            padding: 60px 5%;
+            color: #64748b;
+            border-top: 1px solid #0f172a;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .footer-links a {
+            color: #64748b;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Mobile Responsive --- */
+        @media (max-width: 968px) {
+            .nav-links { display: none; }
+            .menu-btn { display: block; font-size: 1.5rem; }
+            .grid-2, .mv-grid, .contact-box { grid-template-columns: 1fr; }
+            .contact-box { padding: 40px 25px; }
+            .mv-card { padding: 40px; }
+            .section-padding { padding: 70px 5%; }
+            .about-visual { margin-top: 40px; }
+        }
+
+        /* Mobile Overlay Menu */
+        .mobile-menu {
+            position: fixed;
+            inset: 0;
+            background: var(--secondary);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+
+        .mobile-menu.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .mobile-menu a {
+            color: white;
+            font-size: 2rem;
+            font-weight: 800;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="navbar">
+        <a href="#" class="logo">
+            <div class="logo-box">A</div>
+            <div>ALTREICH <span style="color: var(--primary)">THINKTANK</span></div>
+        </a>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#mission">Mission</a>
+            <a href="#causes">Causes</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <button class="menu-btn" onclick="toggleMenu()">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <button onclick="toggleMenu()" style="position:absolute; top:30px; right:30px; background:none; border:none; color:white; font-size:2rem; cursor:pointer;">&times;</button>
+        <a href="#home" onclick="toggleMenu()">Home</a>
+        <a href="#about" onclick="toggleMenu()">About</a>
+        <a href="#mission" onclick="toggleMenu()">Mission</a>
+        <a href="#causes" onclick="toggleMenu()">Causes</a>
+        <a href="#contact" onclick="toggleMenu()">Contact</a>
+    </div>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <span class="badge">ESTABLISHED 2015</span>
+            <h1>Empathetic Decisions,<br><span>Global Impact.</span></h1>
+            <p class="hero-p">Bridging strategic innovation from India to Georgia to challenge the status quo through data-driven advocacy.</p>
+            <div class="btn-group">
+                <a href="#about" class="btn btn-primary">Who We Are</a>
+                <a href="#causes" class="btn btn-outline">Our Causes</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="about section-padding" id="about">
+        <div class="container grid-2">
+            <div class="about-text">
+                <h2>A Distinct Identity</h2>
+                <p>Founded in 2015 in India and expanded to Tbilisi, Georgia in 2018, Altreich Think Tank operates as a registered Non-Profit driven by a single goal: to make the world a better place.</p>
+                <p>Our decision-making process is governed by emphatic and impactful decisions through knowledge, experience, and empirical data-driven communications.</p>
+                <div class="stats">
+                    <div class="stat-item">
+                        <h3>2015</h3>
+                        <p>India Launch</p>
+                    </div>
+                    <div class="stat-item" style="border-left: 1px solid #e2e8f0; padding-left: 40px;">
+                        <h3>2018</h3>
+                        <p>Georgia Expansion</p>
+                    </div>
+                </div>
+            </div>
+            <div class="about-visual">
+                <div class="visual-card v-card-1">
+                    <div class="v-card-icon">📊</div>
+                    <h4>Empirical Data</h4>
+                    <p style="font-size: 0.9rem; color: #64748b;">Decisions driven by facts and measurable impact metrics.</p>
+                </div>
+                <div class="visual-card v-card-2">
+                    <div class="v-card-icon">🌐</div>
+                    <h4>Global Reach</h4>
+                    <p style="font-size: 0.9rem; color: #ecfdf5;">Strategic pursuits spanning international borders.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mv-section section-padding">
+        <div class="container mv-grid">
+            <div class="mv-card mv-mission" id="mission">
+                <div class="mv-icon-bg">🎯</div>
+                <h3>The Mission</h3>
+                <h2>Shaking the<br>Status Quo</h2>
+                <p style="color: #94a3b8; font-size: 1.1rem;">To create a Mix Mode Non-Profit that demands overall transparency in Business, the Public Sector, and Profit Making. Accountability is our cornerstone.</p>
+            </div>
+            <div class="mv-card mv-vision" id="vision">
+                <div class="mv-icon-bg">👥</div>
+                <h3>The Vision</h3>
+                <h2>Cultivating<br>Future Talent</h2>
+                <p style="color: #ecfdf5; font-size: 1.1rem;">Identifying talent motivated by a "sense of fire" to become cause protectors. Focusing on value creation and strategic diversification.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="causes section-padding" id="causes">
+        <div class="container">
+            <div class="section-header">
+                <h2 style="font-size: 2.5rem; margin-bottom: 15px;">Ethical Commitments</h2>
+                <p style="color: var(--text-muted);">Beyond structural reforms, we are passionately dedicated to causes that promote global well-being and animal welfare.</p>
+            </div>
+            <div class="causes-grid">
+                <div class="cause-card">
+                    <div class="cause-icon">🌿</div>
+                    <h3>Vegetarianism</h3>
+                    <p style="color: var(--text-muted);">Promoting plant-based lifestyles to reduce environmental strain and animal suffering globally.</p>
+                </div>
+                <div class="cause-card">
+                    <div class="cause-icon">❤️</div>
+                    <h3>Ethical Living</h3>
+                    <p style="color: var(--text-muted);">Advocating for pure ethical consumption and sustainable long-term living practices.</p>
+                </div>
+                <div class="cause-card">
+                    <div class="cause-icon">🛡️</div>
+                    <h3>Transparency</h3>
+                    <p style="color: var(--text-muted);">Holding profit-making entities accountable through rigorous and honest data analysis.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding" id="contact">
+        <div class="container">
+            <div class="contact-box">
+                <div class="contact-info">
+                    <h2>Connect With Us</h2>
+                    <p style="color: #94a3b8; margin-bottom: 40px;">Ready to engage? Whether you're a future cause protector or a strategic partner, we're waiting for you.</p>
+                    
+                    <div class="contact-method">
+                        <div class="c-icon">📧</div>
+                        <div>
+                            <div style="font-size: 0.7rem; text-transform: uppercase; font-weight: 800; color: #64748b;">Mail Us</div>
+                            <div style="font-weight: 600;">hello@altreich.org</div>
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="c-icon">📍</div>
+                        <div>
+                            <div style="font-size: 0.7rem; text-transform: uppercase; font-weight: 800; color: #64748b;">Global Hubs</div>
+                            <div style="font-weight: 600;">India | Tbilisi, Georgia</div>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form" onsubmit="event.preventDefault(); alert('Message sent! We will contact you soon.');">
+                    <input type="text" placeholder="Full Name" required>
+                    <input type="email" placeholder="Email Address" required>
+                    <textarea rows="5" placeholder="How can we collaborate?" required></textarea>
+                    <button type="submit" class="submit-btn" id="sendBtn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-content">
+            <div>
+                <div class="logo" style="margin-bottom: 10px;">
+                    <div class="logo-box" style="width: 30px; height: 30px; font-size: 0.9rem;">A</div>
+                    <span style="font-size: 1.1rem; color: #94a3b8;">ALTREICH</span>
+                </div>
+                <p style="font-size: 0.8rem;">© 2026 AINexForge. All rights reserved.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">T&C</a>
+                <a href="#">Charity Status</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+        }
+
+        // Simple Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.cause-card, .mv-card').forEach(el => {
+            el.style.opacity = "0";
+            el.style.transform = "translateY(30px)";
+            el.style.transition = "all 0.6s ease-out";
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
