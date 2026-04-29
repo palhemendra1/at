@@ -29,10 +29,10 @@ function fixLinks() {
   document.querySelectorAll('a[href="#"]').forEach(link => {
     const text = link.textContent.trim().toLowerCase();
 
-    let target = null;
-    if (text.includes("press")) target = "/at/press.html";
-    if (text.includes("privacy")) target = "/at/privacy.html";
-    if (text.includes("terms")) target = "/at/terms.html";
+ let target = null;
+if (text.includes("press")) target = "/at/press.html";
+else if (text.includes("privacy")) target = "/at/privacy.html";
+else if (text.includes("terms")) target = "/at/terms.html";
 
     if (target) {
       // Remove any previous handlers
