@@ -24,4 +24,20 @@ function render(){
 }
 if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",render);}else{render();}
 })();
-</script></body></html>
+</script></body><script>
+function fixLinks() {
+  document.querySelectorAll('a[href="#"]').forEach(link => {
+    const text = link.textContent.trim().toLowerCase();
+
+    if (text.includes("press")) link.href = "press.html";
+    if (text.includes("privacy")) link.href = "privacy.html";
+    if (text.includes("terms")) link.href = "t&c.html";
+  });
+}
+
+// Run multiple times to catch dynamic render
+setTimeout(fixLinks, 500);
+setTimeout(fixLinks, 1500);
+setTimeout(fixLinks, 3000);
+</script>
+</html>
