@@ -29,15 +29,25 @@ function fixLinks() {
   document.querySelectorAll('a[href="#"]').forEach(link => {
     const text = link.textContent.trim().toLowerCase();
 
-    if (text.includes("press")) link.href = "press.html";
-    if (text.includes("privacy")) link.href = "privacy.html";
-    if (text.includes("terms")) link.href = "t&c.html";
+    let target = null;
+
+    if (text.includes("press")) target = "press.html";
+    if (text.includes("privacy")) target = "privacy.html";
+    if (text.includes("terms")) target = "t&c.html";
+
+    if (target) {
+      link.href = target;
+
+      // 🔥 Force navigation even if JS blocks it
+      link.onclick = function(e) {
+        e.preventDefault();
+        window.location.href = target;
+      };
+    }
   });
 }
 
-// Run multiple times to catch dynamic render
-setTimeout(fixLinks, 500);
-setTimeout(fixLinks, 1500);
-setTimeout(fixLinks, 3000);
+// Run repeatedly because your page is dynamic
+setInterval(fixLinks, 1000);
 </script>
 </html>
