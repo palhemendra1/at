@@ -30,24 +30,32 @@ function fixLinks() {
     const text = link.textContent.trim().toLowerCase();
 
     let target = null;
-
-    if (text.includes("press")) target = "press.html";
-    if (text.includes("privacy")) target = "privacy.html";
-    if (text.includes("terms")) target = "t&c.html";
+    if (text.includes("press")) target = "/at/press.html";
+    if (text.includes("privacy")) target = "/at/privacy.html";
+    if (text.includes("terms")) target = "/at/t&c.html";
 
     if (target) {
-      link.href = target;
+      // Remove any previous handlers
+      link.onclick = null;
 
-      // 🔥 Force navigation even if JS blocks it
-      link.onclick = function(e) {
+      // Force navigation
+      link.addEventListener("click", function(e) {
+        e.stopPropagation();
         e.preventDefault();
         window.location.href = target;
-      };
+      }, true); // 👈 capture phase (important)
     }
   });
 }
 
-// Run repeatedly because your page is dynamic
-setInterval(fixLinks, 1000);
+// 🔥 Watch for DOM changes (your page rewrites itself)
+const observer = new MutationObserver(fixLinks);
+observer.observe(document.documentElement, {
+  childList: true,
+  subtree: true
+});
+
+// Run once initially
+setTimeout(fixLinks, 500);
 </script>
 </html>
