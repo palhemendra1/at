@@ -24,38 +24,31 @@ function render(){
 }
 if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",render);}else{render();}
 })();
-</script></body><script>
-function fixLinks() {
-  document.querySelectorAll('a[href="#"]').forEach(link => {
-    const text = link.textContent.trim().toLowerCase();
+</script></body>
+<script>
+document.addEventListener("click", function(e) {
+  const link = e.target.closest("a");
+  if (!link) return;
 
- let target = null;
-if (text.includes("press")) target = "/at/press.html";
-else if (text.includes("privacy")) target = "/at/privacy.html";
-else if (text.includes("terms")) target = "/at/terms.html";
+  const text = (link.textContent || "").trim().toLowerCase();
 
-    if (target) {
-      // Remove any previous handlers
-      link.onclick = null;
+  let target = null;
 
-      // Force navigation
-      link.addEventListener("click", function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        window.location.href = target;
-      }, true); // 👈 capture phase (important)
-    }
-  });
-}
+  if (text.includes("press")) {
+    target = "/at/press.html";
+  }
+  else if (text.includes("privacy")) {
+    target = "/at/privacy.html";
+  }
+  else if (text.includes("terms")) {
+    target = "/at/terms.html";
+  }
 
-// 🔥 Watch for DOM changes (your page rewrites itself)
-const observer = new MutationObserver(fixLinks);
-observer.observe(document.documentElement, {
-  childList: true,
-  subtree: true
-});
-
-// Run once initially
-setTimeout(fixLinks, 500);
+  if (target) {
+    e.preventDefault();
+    e.stopPropagation();
+    window.location.href = target;
+  }
+}, true);
 </script>
 </html>
