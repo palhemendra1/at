@@ -6,17 +6,27 @@
   <meta name="description" content="Privacy Policy for AT | Altreich Thinktank">
   <title>Privacy Policy - AT</title>
 
-  <style>
+    <style>
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       background: #f7f7f7;
       color: #222;
       line-height: 1.6;
+      /* ADDED: This ensures the text starts below the fixed header */
+      padding-top: 70px; 
     }
 
     header {
-      padding: 15px;
+      /* ADDED/UPDATED PROPERTIES: */
+      position: fixed;      /* Fixes it to the screen */
+      top: 0;               /* Sticks it to the very top */
+      left: 0;              /* Aligns to left */
+      width: 100%;          /* Stretches across the screen */
+      z-index: 1000;        /* Keeps it on top of other text */
+      box-sizing: border-box; /* Ensures padding doesn't affect width */
+      
+      padding: 15px 30px;   /* Added horizontal padding for better look */
       background: #111;
       color: white;
       display: flex;
@@ -40,9 +50,11 @@
       margin: auto;
       background: white;
       padding: 25px;
+      /* Optional: ensures main content area has a nice shadow when scrolling */
+      box-shadow: 0 0 10px rgba(0,0,0,0.1); 
     }
 
-    h1, h2 {
+    h1, h2, h3 {
       color: #111;
     }
 
